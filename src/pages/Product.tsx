@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllProducts, IProduct } from "../services/productService";
-import { Table, Column } from "../components";
+import { Table, TableColumn, Loading } from "../components";
 
-const productColumns: Column<IProduct>[] = [
+const productColumns: TableColumn<IProduct>[] = [
   { header: "ID", accessor: "id" as keyof IProduct },
   { header: "Name", accessor: "name" as keyof IProduct },
   {
@@ -20,7 +20,6 @@ export const Product: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const data = await getAllProducts();
-        console.log("data", data);
         setProducts(data);
       } catch (error) {
         console.error("Failed to fetch products", error);
@@ -35,7 +34,7 @@ export const Product: React.FC = () => {
   return (
     <>
       <div className="container mt-5">
-        {loading && <div>Loading...</div>}
+        {loading && <Loading />}
         <h1>Product List</h1>
         <Table data={products} columns={productColumns} />
       </div>
