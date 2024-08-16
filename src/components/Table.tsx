@@ -68,8 +68,8 @@ export const Table = <T,>(props: TableProps<T>) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            {formItems.map((item) => (
-              <Form.Group className="mt-3">
+            {formItems.map((item, index) => (
+              <Form.Group key={index} className="mt-3">
                 <Form.Label>{item.label}</Form.Label>
                 <Form.Control
                   placeholder={`Enter ${item.label}`}
