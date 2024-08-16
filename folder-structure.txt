@@ -1,0 +1,75 @@
+my-app/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   └── ...
+├── src/
+│   ├── assets/            # Static assets like images, fonts, etc.
+│   │   ├── images/
+│   │   ├── fonts/
+│   │   └── styles/
+│   │       └── global.css
+│   │
+│   ├── components/        # Reusable components
+│   │   ├── Button/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Button.test.tsx
+│   │   │   ├── Button.module.css
+│   │   │   └── index.tsx
+│   │   ├── Header/
+│   │   │   ├── Header.tsx
+│   │   │   ├── Header.test.tsx
+│   │   │   ├── Header.module.css
+│   │   │   └── index.tsx
+│   │   └── ...
+│   │
+│   ├── hooks/             # Custom React hooks
+│   │   ├── useAuth.ts
+│   │   ├── useFetch.ts
+│   │   └── ...
+│   │
+│   ├── pages/             # Page components (screens/views)
+│   │   ├── Home/
+│   │   │   ├── Home.tsx
+│   │   │   └── Home.module.css
+│   │   ├── About/
+│   │   │   ├── About.tsx
+│   │   │   └── About.module.css
+│   │   └── ...
+│   │
+│   ├── contexts/          # React context providers
+│   │   ├── AuthContext.tsx
+│   │   ├── ThemeContext.tsx
+│   │   └── ...
+│   │
+│   ├── services/          # API calls and business logic
+│   │   ├── api.ts         # Axios or Fetch API wrapper
+│   │   ├── authService.ts
+│   │   └── ...
+│   │
+│   ├── store/             # State management (e.g., Redux)
+│   │   ├── slices/
+│   │   │   ├── userSlice.ts
+│   │   │   └── ...
+│   │   ├── store.ts
+│   │   └── ...
+│   │
+│   ├── types/             # TypeScript types and interfaces
+│   │   ├── api.d.ts
+│   │   ├── user.d.ts
+│   │   └── ...
+│   │
+│   ├── utils/             # Utility functions and helpers
+│   │   ├── formatDate.ts
+│   │   ├── validateEmail.ts
+│   │   └── ...
+│   │
+│   ├── App.tsx            # Main App component
+│   ├── index.tsx          # Entry point
+│   ├── react-app-env.d.ts # React app environment
+│   ├── setupTests.ts      # Jest setup file
+│   └── ...
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── ...
