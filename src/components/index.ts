@@ -1,3 +1,3 @@
 export { Header } from "./Header";
-export { Table, type Column as TableColumn } from "./Table";
+export { Table, type Column as TableColumn, type TableProps } from "./Table";
 export { Loading } from "./Loading";

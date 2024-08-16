@@ -21,7 +21,7 @@ export const getAllProducts = async (): Promise<IProduct[]> => {
 export const getProductById = async (productId: number): Promise<IProduct> => {
   try {
     const response = await axios.get<IProduct>(
-      `${LOCAL_URL}/products/${productId}`
+      `${LOCAL_URL}/product/${productId}`
     );
     return response.data;
   } catch (error) {
@@ -30,12 +30,12 @@ export const getProductById = async (productId: number): Promise<IProduct> => {
   }
 };
 
-export const addProduct = async (
+export const postProduct = async (
   product: Omit<IProduct, "id">
 ): Promise<IProduct> => {
   try {
     const response = await axios.post<IProduct>(
-      `${LOCAL_URL}/products`,
+      `${LOCAL_URL}/product`,
       product
     );
     return response.data;
@@ -47,7 +47,7 @@ export const addProduct = async (
 
 export const deleteProduct = async (productId: number): Promise<void> => {
   try {
-    await axios.delete(`${LOCAL_URL}/products/${productId}`);
+    await axios.delete(`${LOCAL_URL}/product/${productId}`);
   } catch (error) {
     console.error(`Error deleting product with ID ${productId}:`, error);
     throw error;
