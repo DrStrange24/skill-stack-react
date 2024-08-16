@@ -40,7 +40,7 @@ export const Product: React.FC = () => {
     try {
       setLoading(true);
       const addedProduct = await postProduct(newProduct);
-      setProducts([...products, newProduct]);
+      setProducts([...products, addedProduct]);
     } catch (error) {
       console.error("Error adding product:", error);
     } finally {
@@ -61,6 +61,11 @@ export const Product: React.FC = () => {
     }
   };
 
+  const formItems = [
+    { label: "Name", variable: "name" },
+    { label: "Price", variable: "price" },
+  ];
+
   return (
     <>
       <div className="container mt-5">
@@ -71,6 +76,7 @@ export const Product: React.FC = () => {
           columns={productColumns}
           addItem={handleAddProduct}
           deleteItem={handleDeleteProduct}
+          formItems={formItems}
         />
       </div>
     </>

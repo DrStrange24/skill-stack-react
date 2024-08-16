@@ -12,12 +12,14 @@ export interface TableProps<T> {
   columns: Column<T>[];
   addItem: (item: any) => void;
   deleteItem: (item: any) => void;
+  formItems: { label: string; variable: string }[];
 }
 
 export const Table = <T,>(props: TableProps<T>) => {
-  const { data, columns, addItem, deleteItem } = props;
+  const { data, columns, addItem, deleteItem, formItems } = props;
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
+  const [newItem, setNewItem] = useState<any>();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -66,24 +68,25 @@ export const Table = <T,>(props: TableProps<T>) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formProductName">
-              <Form.Label>Product Name</Form.Label>
-              {/* <Form.Control
-                type="text"
-                placeholder="Enter product name"
-                value={'default'}
-                onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-              /> */}
-            </Form.Group>
-            <Form.Group controlId="formProductPrice" className="mt-3">
-              <Form.Label>Price</Form.Label>
-              {/* <Form.Control
-                type="number"
-                placeholder="Enter price"
-                value={'default'}
-                onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
-              /> */}
-            </Form.Group>
+            {formItems.map((item) => (
+              <Form.Group className="mt-3">
+                <Form.Label>{item.label}</Form.Label>
+                <Form.Control
+                  placeholder={`Enter ${item.label}`}
+                  value={
+                    newItem && newItem[item.variable]
+                      ? newItem[item.variable]
+                      : ""
+                  }
+                  onChange={(event) =>
+                    setNewItem((state: any) => ({
+                      ...state,
+                      [item.variable]: event.target.value,
+                    }))
+                  }
+                />
+              </Form.Group>
+            ))}
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -93,8 +96,9 @@ export const Table = <T,>(props: TableProps<T>) => {
           <Button
             variant="primary"
             onClick={() => {
+              addItem(newItem);
               handleClose();
-              addItem({});
+              setNewItem(null);
             }}
           >
             Add Item
