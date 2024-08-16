@@ -29,3 +29,27 @@ export const getProductById = async (productId: number): Promise<IProduct> => {
     throw error;
   }
 };
+
+export const addProduct = async (
+  product: Omit<IProduct, "id">
+): Promise<IProduct> => {
+  try {
+    const response = await axios.post<IProduct>(
+      `${LOCAL_URL}/products`,
+      product
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error adding product:", error);
+    throw error;
+  }
+};
+
+export const deleteProduct = async (productId: number): Promise<void> => {
+  try {
+    await axios.delete(`${LOCAL_URL}/products/${productId}`);
+  } catch (error) {
+    console.error(`Error deleting product with ID ${productId}:`, error);
+    throw error;
+  }
+};
