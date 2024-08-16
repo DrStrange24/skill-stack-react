@@ -19,6 +19,9 @@ export const Header: React.FC = () => {
             <LinkContainer to="/contact">
               <Nav.Link>Contact</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/product">
+              <Nav.Link>Product</Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>
