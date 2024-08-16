@@ -53,3 +53,20 @@ export const deleteProduct = async (productId: number): Promise<void> => {
     throw error;
   }
 };
+
+// Edit a product by ID
+export const editProduct = async (
+  productId: number,
+  updatedProduct: Omit<IProduct, "id">
+): Promise<IProduct> => {
+  try {
+    const response = await axios.put<IProduct>(
+      `${LOCAL_URL}/product/${productId}`,
+      updatedProduct
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating product with ID ${productId}:`, error);
+    throw error;
+  }
+};

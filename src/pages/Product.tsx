@@ -4,6 +4,7 @@ import {
   getAllProducts,
   IProduct,
   deleteProduct,
+  editProduct,
 } from "../services/productService";
 import { Table, TableColumn, Loading } from "../components";
 
@@ -61,6 +62,21 @@ export const Product: React.FC = () => {
     }
   };
 
+  const handleEditProduct = async (product: IProduct) => {
+    try {
+      const updatedProduct = await editProduct(product.id, product);
+      setProducts((prevProducts) =>
+        prevProducts.map((currentProduct) =>
+          product.id === currentProduct.id
+            ? { ...currentProduct, ...updatedProduct }
+            : currentProduct
+        )
+      );
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
+  };
+
   const formItems = [
     { label: "Name", variable: "name" },
     { label: "Price", variable: "price" },
@@ -76,6 +92,7 @@ export const Product: React.FC = () => {
           columns={productColumns}
           addItem={handleAddProduct}
           deleteItem={handleDeleteProduct}
+          editItem={handleEditProduct}
           formItems={formItems}
         />
       </div>
