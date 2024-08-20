@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const LOCAL_URL = "https://localhost:7171";
+const LOCAL_URL = "https://localhost:7171/api";
 
 export interface IProduct {
   id: number;
