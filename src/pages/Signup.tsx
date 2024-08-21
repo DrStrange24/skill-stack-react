@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { ISignup, signup } from "../services/accountService";
-import { ToastMessage, ToastVariant } from "../components/ToastMessage";
+import { ToastMessage, ToastVariant } from "../components";
 
 export const Signup: React.FC = () => {
   const [formData, setFormData] = useState<ISignup>({
