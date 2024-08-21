@@ -53,7 +53,7 @@ export const Signup: React.FC = () => {
         message: "Account created successfully",
         variant: "success",
       });
-      navigate("/product");
+      navigate("/login");
       // Optionally, redirect the user or update the UI
     } catch (err) {
       setToastProps({
