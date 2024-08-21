@@ -14,7 +14,6 @@ export const signup = async (userData: ISignup) => {
     const response = await axios.post(`${LOCAL_URL}/account/signup`, userData);
     return response.data;
   } catch (error) {
-    console.error("There was an error signing up!", error);
     throw error;
   }
 };
@@ -28,7 +27,6 @@ export const login = async (usernameOrEmail: string, password: string) => {
     // Assuming the token or user data is in response.data
     return response.data;
   } catch (error) {
-    console.error("There was an error logging in!", error);
     throw error;
   }
 };

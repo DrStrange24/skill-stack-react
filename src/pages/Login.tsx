@@ -18,8 +18,8 @@ export const Login: React.FC = () => {
       const result = await login(identifier, password);
       loginAuth(result.token);
       navigate("/product");
-    } catch (err) {
-      setError("Login failed. Please check your credentials and try again.");
+    } catch (error: any) {
+      setError(error.response.data);
     }
   };
 

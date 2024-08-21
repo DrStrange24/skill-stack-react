@@ -25,7 +25,6 @@ export const getProductById = async (productId: number): Promise<IProduct> => {
     );
     return response.data;
   } catch (error) {
-    console.error(`Error fetching product with ID ${productId}:`, error);
     throw error;
   }
 };
@@ -40,7 +39,6 @@ export const postProduct = async (
     );
     return response.data;
   } catch (error) {
-    console.error("Error adding product:", error);
     throw error;
   }
 };
@@ -49,7 +47,6 @@ export const deleteProduct = async (productId: number): Promise<void> => {
   try {
     await axios.delete(`${LOCAL_URL}/product/${productId}`);
   } catch (error) {
-    console.error(`Error deleting product with ID ${productId}:`, error);
     throw error;
   }
 };
@@ -66,7 +63,6 @@ export const editProduct = async (
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating product with ID ${productId}:`, error);
     throw error;
   }
 };
