@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { login } from "../services/accountService";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
-
+  const { login: loginAuth } = useAuth();
   const [identifier, setIdentifier] = useState<string>(""); // Email or Username
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -15,7 +16,7 @@ export const Login: React.FC = () => {
 
     try {
       const result = await login(identifier, password);
-      console.log("Login successful:", result);
+      loginAuth(result.token);
       navigate("/product");
     } catch (err) {
       setError("Login failed. Please check your credentials and try again.");
