@@ -9,7 +9,7 @@ export const Header: React.FC = () => {
         <Navbar.Brand href="/">Personal Website</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
+          <Nav className="me-auto">
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
@@ -21,6 +21,14 @@ export const Header: React.FC = () => {
             </LinkContainer>
             <LinkContainer to="/product">
               <Nav.Link>Product</Nav.Link>
+            </LinkContainer>
+          </Nav>
+          <Nav className="ms-auto">
+            <LinkContainer to="/signup">
+              <Nav.Link>Sign up</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/login">
+              <Nav.Link>Login</Nav.Link>
             </LinkContainer>
           </Nav>
         </Navbar.Collapse>
