@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { ISignup, signup } from "../services/accountService";
 import { ToastMessage, ToastVariant } from "../components";
+import { useNavigate } from "react-router-dom";
 
 export const Signup: React.FC = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<ISignup>({
     username: "",
     email: "",
@@ -11,7 +14,6 @@ export const Signup: React.FC = () => {
     firstName: "",
     lastName: "",
   });
-
   const [error, setError] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [toastProps, setToastProps] = useState<{
@@ -49,6 +51,7 @@ export const Signup: React.FC = () => {
         message: "Account created successfully",
         variant: "success",
       });
+      navigate("/product");
       // Optionally, redirect the user or update the UI
     } catch (err) {
       setToastProps({
