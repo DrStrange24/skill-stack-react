@@ -11,7 +11,7 @@ export interface ISignup {
 
 export const signup = async (userData: ISignup) => {
   try {
-    const response = await axios.post(LOCAL_URL, userData);
+    const response = await axios.post(`${LOCAL_URL}/account/signup`, userData);
     return response.data;
   } catch (error) {
     console.error("There was an error signing up!", error);
