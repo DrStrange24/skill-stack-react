@@ -4,3 +4,4 @@ export { Contact } from "./Contact";
 export { Product } from "./Product";
 export { Signup } from "./Signup";
 export { Login } from "./Login";
+export { Profile } from "./Profile";
