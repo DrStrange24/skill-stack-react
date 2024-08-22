@@ -45,7 +45,6 @@ export const Signup: React.FC = () => {
 
     try {
       const result = await signup(formData);
-      console.log("Signup successful:", result);
 
       //to do: toast globally
       setToastProps({
