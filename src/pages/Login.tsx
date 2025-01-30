@@ -3,7 +3,7 @@ import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { login } from "../services/accountService";
-import { ToastMessage, ToastVariant } from "../components";
+import { toast } from "react-toastify";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -11,15 +11,6 @@ export const Login: React.FC = () => {
   const [identifier, setIdentifier] = useState<string>(""); // Email or Username
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const [toastProps, setToastProps] = useState<{
-    show: boolean;
-    message: string;
-    variant: ToastVariant;
-  }>({
-    show: false,
-    message: "",
-    variant: "info",
-  });
 
   //for email confirmation---------------------------
   const location = useLocation();
@@ -28,21 +19,16 @@ export const Login: React.FC = () => {
     const params = new URLSearchParams(location.search);
     const status = params.get("status");
     const message = params.get("message") ?? "";
-    let variant: ToastVariant = "info";
-    switch (status) {
-      case "success":
-        variant = "success";
-        break;
-      case "failure":
-        variant = "danger";
-        break;
-    }
+
     if (status && message)
-      setToastProps({
-        show: true,
-        message: message,
-        variant: variant,
-      });
+      switch (status) {
+        case "success":
+          toast.success(message);
+          break;
+        case "failure":
+          toast.error(message);
+          break;
+      }
   }, [location]);
   //------------------------------------------------------
 
@@ -60,16 +46,6 @@ export const Login: React.FC = () => {
 
   return (
     <Container>
-      <ToastMessage
-        onClose={() => {
-          setToastProps({
-            show: false,
-            message: "",
-            variant: "info",
-          });
-        }}
-        {...toastProps}
-      />
       <Row className="justify-content-md-center">
         <Col md={6}>
           <h2 className="text-center my-4">Login</h2>
