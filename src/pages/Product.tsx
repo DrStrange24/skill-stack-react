@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import {
   postProduct,
   getAllProducts,
@@ -7,6 +7,7 @@ import {
   editProduct,
 } from "../services/productService";
 import { Table, TableColumn, Loading } from "../components";
+import { useRequireAuthentication } from "../helpers/authHelpers";
 
 const productColumns: TableColumn<IProduct>[] = [
   { header: "ID", accessor: "id" as keyof IProduct },
@@ -18,7 +19,9 @@ const productColumns: TableColumn<IProduct>[] = [
   },
 ];
 
-export const Product: React.FC = () => {
+export const Product = (): ReactElement => {
+  useRequireAuthentication();
+
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { login } from "../services/accountService";
+import { toast } from "react-toastify";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -11,12 +12,32 @@ export const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
+  //for email confirmation---------------------------
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const status = params.get("status");
+    const message = params.get("message") ?? "";
+
+    if (status && message)
+      switch (status) {
+        case "success":
+          toast.success(message);
+          break;
+        case "failure":
+          toast.error(message);
+          break;
+      }
+  }, [location]);
+  //------------------------------------------------------
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
       const result = await login(identifier, password);
-      loginAuth(result.token);
+      loginAuth(result);
       navigate("/product");
     } catch (error: any) {
       setError(error.response.data);

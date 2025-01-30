@@ -1,6 +1,8 @@
 import axios from "axios";
+import { LOCAL_URL } from "../constant/url";
 
-const LOCAL_URL = "https://localhost:7171/api";
+axios.defaults.headers.common["Authorization"] =
+  `Bearer ${localStorage.getItem("authToken")}`;
 
 export interface IProduct {
   id: number;
@@ -13,7 +15,6 @@ export const getAllProducts = async (): Promise<IProduct[]> => {
     const response = await axios.get<IProduct[]>(`${LOCAL_URL}/product`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching products:", error);
     throw error;
   }
 };

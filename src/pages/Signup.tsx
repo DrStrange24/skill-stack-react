@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { ISignup, signup } from "../services/accountService";
-import { ToastMessage, ToastVariant } from "../components";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Signup: React.FC = () => {
   const navigate = useNavigate();
@@ -16,15 +16,6 @@ export const Signup: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [toastProps, setToastProps] = useState<{
-    show: boolean;
-    message: string;
-    variant: ToastVariant;
-  }>({
-    show: false,
-    message: "",
-    variant: "info",
-  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -45,22 +36,12 @@ export const Signup: React.FC = () => {
 
     try {
       const result = await signup(formData);
-      console.log("Signup successful:", result);
 
-      //to do: toast globally
-      setToastProps({
-        show: true,
-        message: "Account created successfully",
-        variant: "success",
-      });
+      toast.success("Account created successfully");
       navigate("/login");
       // Optionally, redirect the user or update the UI
     } catch (err) {
-      setToastProps({
-        show: true,
-        message: "Signup failed. Please try again.",
-        variant: "danger",
-      });
+      toast.error("Signup failed. Please try again.");
     }
   };
 
@@ -142,16 +123,6 @@ export const Signup: React.FC = () => {
           </Form>
         </Col>
       </Row>
-      <ToastMessage
-        onClose={() => {
-          setToastProps({
-            show: false,
-            message: "",
-            variant: "info",
-          });
-        }}
-        {...toastProps}
-      />
     </Container>
   );
 };

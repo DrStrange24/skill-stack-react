@@ -30,6 +30,9 @@ export const Header: React.FC = () => {
           <Nav className="ms-auto">
             {isAuthenticated ? (
               <>
+                <LinkContainer to="/profile">
+                  <Nav.Link>Profile</Nav.Link>
+                </LinkContainer>
                 <LinkContainer
                   to="/login"
                   onClick={() => {
