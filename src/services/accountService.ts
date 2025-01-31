@@ -30,3 +30,20 @@ export const login = async (usernameOrEmail: string, password: string) => {
     throw error;
   }
 };
+
+export const confirmEmail = async (
+  userId: string | null,
+  token: string | null
+) => {
+  try {
+    const response = await axios.get<{ message: string }>(
+      `${LOCAL_URL}/account/confirm-email`,
+      {
+        params: { userId, token },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

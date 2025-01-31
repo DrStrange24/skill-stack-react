@@ -25,6 +25,7 @@ export const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/confirm-email" element={<EmailConfirmation />} />
         </Routes>
         <Toast />
       </BrowserRouter>
