@@ -1,11 +1,10 @@
-import React from "react";
 import { Spinner } from "react-bootstrap";
 
 export interface LoadingProps {
   message?: string;
 }
 
-export const Loading: React.FC<LoadingProps> = ({ message = "Loading..." }) => {
+export const Loading = ({ message = "Loading..." }: LoadingProps) => {
   return (
     <div
       className="d-flex justify-content-center align-items-center"

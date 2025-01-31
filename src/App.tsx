@@ -1,10 +1,18 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header, Toast } from "./components";
-import { Home, About, Contact, Product, Signup, Login, Profile } from "./pages";
+import {
+  Home,
+  About,
+  Contact,
+  Product,
+  Signup,
+  Login,
+  Profile,
+  EmailConfirmation,
+} from "./pages";
 import { AuthProvider } from "./context/AuthContext";
 
-const App: React.FC = () => {
+export const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -23,5 +31,3 @@ const App: React.FC = () => {
     </AuthProvider>
   );
 };
-
-export default App;
