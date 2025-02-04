@@ -28,7 +28,7 @@ export const Profile = (): ReactElement => {
                 <strong>Last Name:</strong> {user?.lastName}
               </Card.Text>
               <Card.Text>
-                <strong>Username:</strong> {user?.username}
+                <strong>Username:</strong> {user?.userName}
               </Card.Text>
               <Card.Text>
                 <strong>Email Confirmed:</strong>{" "}

@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, ReactNode } from "react";
 
 export interface IUser {
   id: string;
-  username: string;
+  userName: string;
   email: string;
   password: string;
   firstName: string;
