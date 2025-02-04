@@ -1,10 +1,18 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header, Toast } from "./components";
-import { Home, About, Contact, Product, Signup, Login, Profile } from "./pages";
+import {
+  Home,
+  About,
+  Contact,
+  Product,
+  Signup,
+  Login,
+  Profile,
+  EmailConfirmation,
+} from "./pages";
 import { AuthProvider } from "./context/AuthContext";
 
-const App: React.FC = () => {
+export const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -17,11 +25,10 @@ const App: React.FC = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/confirm-email" element={<EmailConfirmation />} />
         </Routes>
         <Toast />
       </BrowserRouter>
     </AuthProvider>
   );
 };
-
-export default App;
