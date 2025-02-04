@@ -8,7 +8,7 @@ export const Signup: React.FC = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<ISignup>({
-    username: "",
+    userName: "",
     email: "",
     password: "",
     firstName: "",
@@ -80,7 +80,7 @@ export const Signup: React.FC = () => {
                 type="text"
                 placeholder="Enter username"
                 name="username"
-                value={formData.username}
+                value={formData.userName}
                 onChange={handleChange}
                 required
               />

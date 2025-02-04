@@ -2,7 +2,7 @@ import axios from "axios";
 import { LOCAL_URL } from "../constant/url";
 
 export interface ISignup {
-  username: string;
+  userName: string;
   email: string;
   password: string;
   firstName: string;
