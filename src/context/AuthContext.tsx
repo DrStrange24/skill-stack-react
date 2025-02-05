@@ -2,12 +2,6 @@ import React, { createContext, useState, useContext, ReactNode } from "react";
 
 export interface IUser {
   id: string;
-  userName: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  emailConfirmed: boolean;
 }
 
 interface AuthContextType {
