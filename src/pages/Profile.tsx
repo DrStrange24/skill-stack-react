@@ -17,6 +17,7 @@ import {
   IProfile,
   updateProfile,
 } from "../services/accountService";
+import { toast } from "react-toastify";
 
 // Profile Form Component
 const ProfileForm = ({
@@ -216,11 +217,17 @@ const ProfileModal = ({
 export const Profile = (): ReactElement => {
   useRequireAuthentication();
   const [isLoading, setIsLoading] = useState(false);
-  const [profileData, setProfileData] = useState<IProfile>({
+  const [userData, setUserData] = useState<IProfile>({
     email: "",
     firstName: "",
     lastName: "",
     userName: "",
+  });
+  const [profileData, setProfileData] = useState<IProfile>({
+    email: userData.email ?? "",
+    firstName: userData.firstName ?? "",
+    lastName: userData.lastName ?? "",
+    userName: userData.userName ?? "",
   });
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
@@ -235,6 +242,7 @@ export const Profile = (): ReactElement => {
   useEffect(() => {
     const initializeUser = async () => {
       const fetchedUser = await getProfile();
+      setUserData(fetchedUser);
       setProfileData(fetchedUser);
       setIsLoading(false);
     };
@@ -248,9 +256,12 @@ export const Profile = (): ReactElement => {
 
     try {
       await updateProfile(profileData);
-      setShowModal(false); // Close modal after successful update
-    } catch (error) {
+      setUserData(profileData);
+      setShowModal(false);
+      toast.success("Profile updated successfully");
+    } catch (error: any) {
       console.error("Error updating profile", error);
+      toast.error("Error updating profile");
     } finally {
       setIsLoading(false);
     }
@@ -261,7 +272,7 @@ export const Profile = (): ReactElement => {
     setIsLoading(true);
 
     if (passwordData.newPassword !== passwordData.confirmNewPassword) {
-      alert("New passwords do not match.");
+      toast.warning("New passwords do not match.");
       setIsLoading(false);
       return;
     }
@@ -271,9 +282,16 @@ export const Profile = (): ReactElement => {
         currentPassword: passwordData.oldPassword,
         newPassword: passwordData.newPassword,
       });
-      setShowModal(false); // Close modal after successful password change
+      setShowModal(false);
+      setPasswordData({
+        oldPassword: "",
+        newPassword: "",
+        confirmNewPassword: "",
+      });
+      toast.success("Password has been change successfully");
     } catch (error) {
       console.error("Error changing password", error);
+      toast.error("Error changing password");
     } finally {
       setIsLoading(false);
     }
@@ -287,16 +305,16 @@ export const Profile = (): ReactElement => {
             <Card.Body>
               <Card.Title>User Profile</Card.Title>
               <Card.Text>
-                <strong>Email:</strong> {profileData?.email}
+                <strong>Email:</strong> {userData?.email}
               </Card.Text>
               <Card.Text>
-                <strong>First Name:</strong> {profileData?.firstName}
+                <strong>First Name:</strong> {userData?.firstName}
               </Card.Text>
               <Card.Text>
-                <strong>Last Name:</strong> {profileData?.lastName}
+                <strong>Last Name:</strong> {userData?.lastName}
               </Card.Text>
               <Card.Text>
-                <strong>Username:</strong> {profileData?.userName}
+                <strong>Username:</strong> {userData?.userName}
               </Card.Text>
 
               {/* Buttons for Profile and Password Modals */}
