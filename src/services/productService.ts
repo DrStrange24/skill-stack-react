@@ -52,7 +52,6 @@ export const deleteProduct = async (productId: number): Promise<void> => {
   }
 };
 
-// Edit a product by ID
 export const editProduct = async (
   productId: number,
   updatedProduct: Omit<IProduct, "id">

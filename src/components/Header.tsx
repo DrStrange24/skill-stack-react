@@ -1,12 +1,11 @@
-import React from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useAuth, useCheckAdminRole } from "../context/AuthContext";
 
-export const Header: React.FC = () => {
-  const navigate = useNavigate();
+export const Header = () => {
   const { isAuthenticated, logout } = useAuth();
+  const isAdmin = useCheckAdminRole();
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -14,7 +13,7 @@ export const Header: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <LinkContainer to="/">
+            <LinkContainer to="/home">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/about">
@@ -26,6 +25,11 @@ export const Header: React.FC = () => {
             <LinkContainer to="/product">
               <Nav.Link>Product</Nav.Link>
             </LinkContainer>
+            {isAdmin && (
+              <LinkContainer to="/users">
+                <Nav.Link>Users</Nav.Link>
+              </LinkContainer>
+            )}
           </Nav>
           <Nav className="ms-auto">
             {isAuthenticated ? (

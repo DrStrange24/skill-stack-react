@@ -1,19 +1,9 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
-
-export interface IUser {
-  id: string;
-  username: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  emailConfirmed: boolean;
-}
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 interface AuthContextType {
   token: string | null;
-  user: IUser | null;
-  login: (result: { token: string; user: IUser }) => void;
+  login: (result: { token: string }) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -26,31 +16,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("authToken")
   );
-  const [user, setUser] = useState<IUser | null>(
-    token ? JSON.parse(localStorage.getItem("user") || "null") : null
-  );
 
-  const login = (result: { token: string; user: IUser }) => {
-    const { token: newToken, user: userData } = result;
+  const login = (result: { token: string }) => {
+    const { token: newToken } = result;
     setToken(newToken);
-    setUser(userData);
     localStorage.setItem("authToken", newToken);
-    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
     setToken(null);
-    setUser(null);
     localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
   };
 
   const isAuthenticated = !!token;
 
   return (
-    <AuthContext.Provider
-      value={{ token, user, login, logout, isAuthenticated }}
-    >
+    <AuthContext.Provider value={{ token, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
@@ -62,4 +43,26 @@ export const useAuth = () => {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
+};
+
+// A custom hook to check if the user is admin
+export const useCheckAdminRole = () => {
+  const token = localStorage.getItem("authToken");
+
+  if (!token) return false;
+
+  try {
+    const decodedToken: any = jwtDecode(token);
+    const roles =
+      decodedToken[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ];
+
+    if (roles === "Admin") return true;
+
+    return false;
+  } catch (error) {
+    console.error("Token decoding error:", error);
+    return false;
+  }
 };

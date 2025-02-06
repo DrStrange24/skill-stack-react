@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { login } from "../services/accountService";
 
-export const Login: React.FC = () => {
+export const Login = () => {
   const navigate = useNavigate();
   const { login: loginAuth } = useAuth();
   const [identifier, setIdentifier] = useState<string>(""); // Email or Username
@@ -17,7 +17,8 @@ export const Login: React.FC = () => {
     try {
       const result = await login(identifier, password);
       loginAuth(result);
-      navigate("/product");
+      navigate("/home");
+      window.location.reload();
     } catch (error: any) {
       setError(error.response.data);
     }

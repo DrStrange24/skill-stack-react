@@ -9,6 +9,7 @@ import {
   Login,
   Profile,
   EmailConfirmation,
+  Users,
 } from "./pages";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -18,7 +19,7 @@ export const App = () => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product" element={<Product />} />
@@ -26,6 +27,7 @@ export const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/confirm-email" element={<EmailConfirmation />} />
+          <Route path="/users" element={<Users />} />
         </Routes>
         <Toast />
       </BrowserRouter>
