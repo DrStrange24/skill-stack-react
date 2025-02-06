@@ -53,20 +53,15 @@ export const useCheckAdminRole = () => {
   if (!token) return false;
 
   try {
-    const decodedToken = jwtDecode(token) as JwtPayload;
+    const decodedToken: any = jwtDecode(token);
+    const roles =
+      decodedToken[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ];
 
-    // Check for the role in the payload
-    if (decodedToken && decodedToken.sub) {
-      // If you have roles in the payload, you can check it
-      if (
-        decodedToken.aud &&
-        Array.isArray(decodedToken.aud) &&
-        decodedToken.aud.includes("Admin")
-      ) {
-        return true;
-      }
-    }
-    return false; // If not an admin, return false
+    if (roles === "Admin") return true;
+
+    return false;
   } catch (error) {
     console.error("Token decoding error:", error);
     return false;
