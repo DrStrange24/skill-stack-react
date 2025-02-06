@@ -14,6 +14,15 @@ export interface IUser {
   roles: string[];
 }
 
+export interface IPostUser {
+  email: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  password: string;
+  roles: string[];
+}
+
 export const getAllUsers = async (): Promise<IUser[]> => {
   try {
     const response = await axios.get<IUser[]>(`${LOCAL_URL}/user`);
@@ -32,7 +41,7 @@ export const getUserById = async (id: string): Promise<IUser> => {
   }
 };
 
-export const postUser = async (user: Omit<IUser, "id">): Promise<IUser> => {
+export const postUser = async (user: IPostUser): Promise<IUser> => {
   try {
     const response = await axios.post<IUser>(`${LOCAL_URL}/user`, user);
     return response.data;
