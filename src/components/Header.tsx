@@ -26,6 +26,9 @@ export const Header: React.FC = () => {
             <LinkContainer to="/product">
               <Nav.Link>Product</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/users">
+              <Nav.Link>Users</Nav.Link>
+            </LinkContainer>
           </Nav>
           <Nav className="ms-auto">
             {isAuthenticated ? (

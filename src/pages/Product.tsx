@@ -86,19 +86,17 @@ export const Product = (): ReactElement => {
   ];
 
   return (
-    <>
-      <div className="container mt-5">
-        {loading && <Loading />}
-        <h1>Product List</h1>
-        <Table
-          data={products}
-          columns={productColumns}
-          addItem={handleAddProduct}
-          deleteItem={handleDeleteProduct}
-          editItem={handleEditProduct}
-          formItems={formItems}
-        />
-      </div>
-    </>
+    <div className="container mt-5">
+      {loading && <Loading />}
+      <h1>Product List</h1>
+      <Table
+        data={products}
+        columns={productColumns}
+        addItem={handleAddProduct}
+        deleteItem={handleDeleteProduct}
+        editItem={handleEditProduct}
+        formItems={formItems}
+      />
+    </div>
   );
 };

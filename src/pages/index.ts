@@ -6,3 +6,4 @@ export { Signup } from "./Signup";
 export { Login } from "./Login";
 export { Profile } from "./Profile";
 export { EmailConfirmation } from "./EmailConfirmation";
+export { Users } from "./Users";
