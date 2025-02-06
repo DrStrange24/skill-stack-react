@@ -378,14 +378,7 @@ const Table = <T,>(props: TableProps<T>) => {
                     </Badge>
                   ))
                 ) : (
-                  <Badge
-                    key={"user"}
-                    bg="primary"
-                    className="me-2"
-                    style={{ cursor: "pointer" }}
-                  >
-                    {"User"} &times;
-                  </Badge>
+                  <p>No roles assigned.</p>
                 )}
               </div>
             </div>
