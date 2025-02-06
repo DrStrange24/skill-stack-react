@@ -146,19 +146,19 @@ const Table = <T,>(props: TableProps<T>) => {
   const [selectedRole, setSelectedRole] = useState<string>("");
   const availableRoles = ["Admin", "User"];
 
-  const addRole = () => {
+  const addRole = (newItem: any, setNewItem: any) => {
     if (selectedRole && !newItem?.roles?.includes(selectedRole)) {
       setNewItem((state: any) => ({
         ...state,
-        roles: [...(state.roles || []), selectedRole],
+        roles: [...(state?.roles || []), selectedRole],
       }));
     }
   };
 
-  const removeRole = (role: string) => {
+  const removeRole = (role: string, setNewItem: any) => {
     setNewItem((state: any) => ({
       ...state,
-      roles: state.roles.filter((r: string) => r !== role),
+      roles: state?.roles?.filter((r: string) => r !== role),
     }));
   };
 
@@ -269,7 +269,11 @@ const Table = <T,>(props: TableProps<T>) => {
                 ))}
               </Form.Select>
 
-              <Button variant="primary" className="mt-2" onClick={addRole}>
+              <Button
+                variant="primary"
+                className="mt-2"
+                onClick={() => addRole(newItem, setNewItem)}
+              >
                 Add Role
               </Button>
             </Form.Group>
@@ -283,7 +287,7 @@ const Table = <T,>(props: TableProps<T>) => {
                       bg="primary"
                       className="me-2"
                       style={{ cursor: "pointer" }}
-                      onClick={() => removeRole(role)}
+                      onClick={() => removeRole(role, setNewItem)}
                     >
                       {role} &times;
                     </Badge>
@@ -336,6 +340,55 @@ const Table = <T,>(props: TableProps<T>) => {
                 />
               </Form.Group>
             ))}
+            <Form.Group className="mt-3">
+              <Form.Label>Select Role</Form.Label>
+              <Form.Select
+                value={selectedRole}
+                onChange={(e) => setSelectedRole(e.target.value)}
+              >
+                <option value="">Select a role</option>
+                {availableRoles.map((role) => (
+                  <option key={role} value={role}>
+                    {role}
+                  </option>
+                ))}
+              </Form.Select>
+
+              <Button
+                variant="primary"
+                className="mt-2"
+                onClick={() => addRole(updatedItem, setUpdatedItem)}
+              >
+                Add Role
+              </Button>
+            </Form.Group>
+            <div className="mt-3">
+              <strong>Assigned Roles:</strong>
+              <div>
+                {updatedItem?.roles?.length ? (
+                  updatedItem?.roles?.map((role: string) => (
+                    <Badge
+                      key={role}
+                      bg="primary"
+                      className="me-2"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => removeRole(role, setUpdatedItem)}
+                    >
+                      {role} &times;
+                    </Badge>
+                  ))
+                ) : (
+                  <Badge
+                    key={"user"}
+                    bg="primary"
+                    className="me-2"
+                    style={{ cursor: "pointer" }}
+                  >
+                    {"User"} &times;
+                  </Badge>
+                )}
+              </div>
+            </div>
           </Form>
         </Modal.Body>
         <Modal.Footer>
