@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 interface AuthContextType {
   token: string | null;
@@ -43,4 +44,31 @@ export const useAuth = () => {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
+};
+
+// A custom hook to check if the user is admin
+export const useCheckAdminRole = () => {
+  const token = localStorage.getItem("authToken");
+
+  if (!token) return false;
+
+  try {
+    const decodedToken = jwtDecode(token) as JwtPayload;
+
+    // Check for the role in the payload
+    if (decodedToken && decodedToken.sub) {
+      // If you have roles in the payload, you can check it
+      if (
+        decodedToken.aud &&
+        Array.isArray(decodedToken.aud) &&
+        decodedToken.aud.includes("Admin")
+      ) {
+        return true;
+      }
+    }
+    return false; // If not an admin, return false
+  } catch (error) {
+    console.error("Token decoding error:", error);
+    return false;
+  }
 };

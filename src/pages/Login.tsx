@@ -17,7 +17,7 @@ export const Login: React.FC = () => {
     try {
       const result = await login(identifier, password);
       loginAuth(result);
-      navigate("/product");
+      navigate("/home");
     } catch (error: any) {
       setError(error.response.data);
     }

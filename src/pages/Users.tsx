@@ -5,7 +5,7 @@ import {
   ConfirmationModal,
   TableProps,
 } from "../components";
-import { useRequireAuthentication } from "../helpers/authHelpers";
+import { useRequireAdminAuthentication } from "../helpers/authHelpers";
 import {
   deleteUser,
   updateUser,
@@ -26,7 +26,7 @@ import {
 import { PencilSquare, Plus, Trash } from "react-bootstrap-icons";
 
 export const Users = (): ReactElement => {
-  useRequireAuthentication();
+  useRequireAdminAuthentication();
 
   const [data, setData] = useState<IUser[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
